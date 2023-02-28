@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block titulo %} Inicio {% endblock %} - Master PHP
+        </title>
+    </head>
+    <body>
+        <nav id="header">
+            {% block cabecera %}
+                <h1>caratula de la planilla</h1>
+            {% endblock %}
+            <hr>
+        </nav>
+        <section id="content">
+            {% block contenido %}
+                <p>Contenido del bloque</p>
+            {% endblock %}
+             <hr>
+        </section>
+        <footer>
+            David Lezcano
+        </footer>
+    </body>
+</html>

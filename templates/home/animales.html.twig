@@ -1,2 +1,13 @@
-<h1>{{title}}</h1>
-<h2> Tu nombre completo es: {{nombre}} {{apellidos}} </h2>
+{% extends 'strbases/master.html.twig' %}
+
+{% block titulo %} Animales {% endblock %}
+
+{% block cabecera%}
+    {{parent()}}
+    <h1>Animales</h1>
+{% endblock %}
+
+{% block contenido%}
+    <h1>{{title}}</h1>
+    <h2> Tu nombre completo es: {{nombre}} {{apellidos}} </h2>
+{% endblock %}
