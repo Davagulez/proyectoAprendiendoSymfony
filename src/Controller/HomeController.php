@@ -18,4 +18,14 @@ class HomeController extends AbstractController
             'hello' => 'HOLA MUNDO CON SYMFONY 5'
         ]);
     }
+
+    public function animales($nombre, $apellidos)
+    {
+        $title= 'Bienvenido a la página de animales';
+        return $this->render('home/animales.html.twig', [
+            'title' => $title,
+            'nombre' => $nombre,
+            'apellidos' => $apellidos
+        ]);
+    }
 }
