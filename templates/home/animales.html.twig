@@ -1,13 +1,54 @@
+{# "{#" sirve para comentar, "{%" para iniciar y cerrar un bloque, y "{{" para imprimir una variable que nos llega desde otro lado #}
 {% extends 'strbases/master.html.twig' %}
 
 {% block titulo %} Animales {% endblock %}
 
 {% block cabecera%}
     {{parent()}}
-    <h1>Animales</h1>
+    <h2>{{title}}</h2>
 {% endblock %}
 
 {% block contenido%}
+    {#
     <h1>{{title}}</h1>
-    <h2> Tu nombre completo es: {{nombre}} {{apellidos}} </h2>
+    <h2> Tu nombre completo es: {{nombre}} {{apellidos}} </h2> 
+    #}
+
+    {# Crear Variable #}
+    {% set perro = 'Ovejero' %}
+    {{perro}}
+
+    {# Trabajando con Arrays #}
+    {{dump(animales)}}
+    {{animales[2]}}
+
+    {# Arrays Asociativos #}
+    {{dump(aves)}}
+    {{aves.tipo ~ ' ' ~ aves.raza}}
+
+    {# Condicional #}
+    {% if aves.tipo == 'palomo' %}
+        <h1> Cuidado un palomo volador </h1>
+    {% else %}
+        <h2> No hay palomos a la vista </h2>
+    {% endif %}
+
+    {# bucle #}
+    {% if animales|length >= 0 %}
+        <ul>
+            {% for animal in animales %}
+                <li>
+                    {{animal}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {# Starts with #}
+    {% if aves.color starts with 'G' %}
+        <h1> con "starts" with indico el parametro con el que empieza el atributo de aves.color </h1>
+    {% elseif aves.color ends with 's' %}
+        <h1> con "ends" with indico el parametro con el que termina el atributo de aves.color </h1>
+    {% endif %}
+
 {% endblock %}
