@@ -10,3 +10,15 @@
 {% for i in range(0, 100, 5) %}
     {{i}} </br>
 {% endfor %}
+
+<h2> Filtros </h2>
+{{animales|length}}
+
+{% set email = '    lezc1402@gmail.com    ' %}
+{{ dump(email|trim) }}
+{{ dump(email|trim|upper) }}
+{{ dump(email|trim|lower) }}
+
+<h1> Extensiones personalizadas </h1>
+{{multiplicar(2)|raw}}
+{{12|multiplicar|raw}}
