@@ -1,4 +1,4 @@
-Animales:
+Animal:
     type: entity
     table: animales
     id:

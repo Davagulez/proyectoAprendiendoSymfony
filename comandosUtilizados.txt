@@ -1,0 +1,20 @@
+//limpiar el cache
+php bin/console cache:clear
+
+//Generar una Entidad desde la base de datos en la ruta src/Entity
+php bin/console  doctrine:mapping:convert --from-database yml ./src/Entity  /// crea en formato sql
+php bin/console  doctrine:mapping:convert --from-database annotation ./src/Entity  /// crea como un objeto o clase
+php bin/console make:entity --regenerate /// regenera la entidad agregando todos los get y los setters
+
+//Generar una entidad
+php bin/console make:entity {Nombre de la entidad}
+
+// Realizar migración a la base de datos
+php bin/console doctrine:migrations:diff /// genera un archivo con todo el código sql representado de la configuración de las entidades.
+php bin/console doctrine:migrations:migrate /// genera la carga o migración del archivo previamente creado, a la base de datos.
+
+//Crear un controlador
+php bin/console make:controller {Nombre del controlador}
+
+//Generar consultas SQL a traves de doctrine
+php bin/console doctrine:query:sql {Código SQl a ejecutar}

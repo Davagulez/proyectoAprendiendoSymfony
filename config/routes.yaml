@@ -10,3 +10,27 @@ animales:
     requirements:
         nombre: '[a-zA-Z]+'
         apellidos: '[0-9]+'
+
+redirigir:
+    path: /redirigir
+    controller: App/Controller/HomeController::redirigir
+
+animalIndex:
+    path: /animal/inicio
+    controller: App\Controller\AnimalController::index
+
+animalSave:
+    path: /animal/save
+    controller: App\Controller\AnimalController::save
+
+animalDetail:
+    path: /animal/{id}
+    controller: App\Controller\AnimalController::oneAnimal
+
+animalUpdate:
+    path: /animal/update/{id}
+    controller: App\Controller\AnimalController::updateAnimal    
+
+animalDelete:
+    path: /animal/delete/{id}
+    controller: App\Controller\AnimalController::deleteAnimal  
