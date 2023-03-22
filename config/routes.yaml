@@ -22,9 +22,10 @@ animalIndex:
 animalSave:
     path: /animal/save
     controller: App\Controller\AnimalController::save
+    methods: [POST]
 
 animalDetail:
-    path: /animal/{id}
+    path: /animal/show/{id}
     controller: App\Controller\AnimalController::oneAnimal
 
 animalUpdate:
@@ -33,4 +34,8 @@ animalUpdate:
 
 animalDelete:
     path: /animal/delete/{id}
-    controller: App\Controller\AnimalController::deleteAnimal  
+    controller: App\Controller\AnimalController::deleteAnimal
+
+crearAnimal:
+    path: /animal/create
+    controller: App\Controller\AnimalController::createAnimal

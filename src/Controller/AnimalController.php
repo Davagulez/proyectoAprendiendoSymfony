@@ -5,10 +5,14 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Animal;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\VarDumper\VarDumper;
+use Symfony\Component\Form\Extension\Core\Type\{TextType, SubmitType};
+
 
 
 class AnimalController extends AbstractController
@@ -19,6 +23,37 @@ class AnimalController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+
+    }
+
+    public function createAnimal(Request $request)
+    {
+        $animal = new Animal();
+        $form = $this->createFormBuilder($animal)
+                     //->setAction($this->generateUrl('animalSave'))
+                        ->add('tipo', TextType::class, [
+                            'label' => 'Tipo de Animal'
+                        ])
+                        ->add('color', TextType::class)
+                        ->add('raza', TextType::class)
+                        ->add('send', SubmitType::class, [
+                            'label' => 'Crear Animal',
+                            'attr' => ['class' => 'btn btn-success']
+                        ])
+                     ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $this->entityManager->persist($animal);
+            $this->entityManager->flush();
+
+            $session = new Session();
+            $session->getFlashBag()->add('message', 'Animal creado');
+
+            return $this->redirectToRoute('crearAnimal');
+        }
+        return $this->render('animal/crearAnimal.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     public function index(): Response
@@ -74,7 +109,7 @@ class AnimalController extends AbstractController
         ]);
     }
 
-    public function save()
+    public function save(Request $request)
     {
         //guardar en una tabla de la base de datos
         //cargo el Entity Manager (Update: el entityManager siempre esta cargado)
@@ -93,8 +128,8 @@ class AnimalController extends AbstractController
         return new Response('El animal que tiene guardado en la base de datos tiene un id: '.$animal->getId());
     }
 
-    public function oneAnimal(Animal $animal)
-            //se reemplazo el $id, por declarar el tipo de dato y de donde pertenece. Es decir, Animal $animal. Lo que generá es que se pueda hacer la petición directamente sin hacer las peticiones comentadas.
+    public function oneAnimal(Animal $animal)        
+    //se reemplazo el $id, por declarar el tipo de dato y de donde pertenece. Es decir, Animal $animal. Lo que generá es que se pueda hacer la petición directamente sin hacer las peticiones comentadas.
     {
         /* //Cargar repositorio
         $animal_repo = $this->entityManager->getRepository(Animal::class);
