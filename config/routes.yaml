@@ -1,4 +1,8 @@
 index:
+    path: /
+    controller: App\Controller\AnimalController::index
+
+inicio:
     path: /inicio
     controller: App\Controller\HomeController::index
 
@@ -39,3 +43,7 @@ animalDelete:
 crearAnimal:
     path: /animal/create
     controller: App\Controller\AnimalController::createAnimal
+
+validarEmail:
+    path: /email/{email}
+    controller: App\Controller\AnimalController::validarEmail

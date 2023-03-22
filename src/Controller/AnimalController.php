@@ -12,6 +12,10 @@ use App\Entity\Animal;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, SubmitType};
+use App\Form\AnimalType;
+
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Email;
 
 
 
@@ -26,23 +30,35 @@ class AnimalController extends AbstractController
 
     }
 
+    public function validarEmail($email)
+    {
+        $validator = Validation::createValidator();
+        
+        $errores = $validator->validate($email, [
+            new Email()
+        ]);
+
+        if (count($errores) != 0) {
+            echo "El dato no se ha validado <br/>";
+
+            foreach ($errores as $error) {
+                echo $error->getMessage()."<br/>";
+            }
+            
+        } else {
+            echo "El dato se ha validado correctamente";
+        }
+
+        die();
+    }
+
     public function createAnimal(Request $request)
     {
         $animal = new Animal();
-        $form = $this->createFormBuilder($animal)
-                     //->setAction($this->generateUrl('animalSave'))
-                        ->add('tipo', TextType::class, [
-                            'label' => 'Tipo de Animal'
-                        ])
-                        ->add('color', TextType::class)
-                        ->add('raza', TextType::class)
-                        ->add('send', SubmitType::class, [
-                            'label' => 'Crear Animal',
-                            'attr' => ['class' => 'btn btn-success']
-                        ])
-                     ->getForm();
+        $form = $this->createForm(AnimalType::class, $animal);                
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($animal);
             $this->entityManager->flush();
 
